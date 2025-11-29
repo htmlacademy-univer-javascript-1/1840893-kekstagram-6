@@ -1,3 +1,5 @@
-import { picture } from './data.js';
+import { post } from './data.js';
 
-picture();
+post();
+
+console.log(post());

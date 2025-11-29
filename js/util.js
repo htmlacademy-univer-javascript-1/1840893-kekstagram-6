@@ -1,4 +1,4 @@
-import { MESSAGE } from './data.js';
+import { MESSAGE } from './constants.js';
 
 const getRandomInteger = (a, b) => {
   const lower = Math.ceil(Math.min(a, b));
