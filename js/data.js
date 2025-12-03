@@ -30,6 +30,6 @@ const getPost = () => ({
   })),
 });
 
-const post = () => Array.from({ length: PICTURE_COUNT }, getPost);
+const posts = () => Array.from({ length: PICTURE_COUNT }, getPost);
 
-export { post };
+export { posts };
