@@ -30,6 +30,6 @@ const getPost = () => ({
   })),
 });
 
-const genetarePosts = () => Array.from({ length: PICTURE_COUNT }, getPost);
+const generatePosts = () => Array.from({ length: PICTURE_COUNT }, getPost);
 
-export { genetarePosts };
+export { generatePosts };
