@@ -1,11 +1,11 @@
 import { openFullPhoto } from './render-full-photo.js';
 
-const renderThumbnail = (genetarePosts) => {
+const renderThumbnail = (posts) => {
   const pictureTemplate = document.querySelector('#picture').content;
   const picturesContainer = document.querySelector('.pictures');
   const fragment = document.createDocumentFragment();
 
-  genetarePosts.forEach((post) => {
+  posts.forEach((post) => {
     const pictureElement = pictureTemplate
       .querySelector('.picture')
       .cloneNode(true);
