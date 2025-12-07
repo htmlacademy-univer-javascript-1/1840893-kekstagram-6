@@ -1,3 +1,5 @@
+import { openFullPhoto } from './render-full-photo.js';
+
 const renderThumbnail = (genetarePosts) => {
   const pictureTemplate = document.querySelector('#picture').content;
   const picturesContainer = document.querySelector('.pictures');
@@ -16,7 +18,7 @@ const renderThumbnail = (genetarePosts) => {
     img.alt = post.description;
     likes.textContent = post.likes;
     comments.textContent = post.comments.length;
-
+    pictureElement.addEventListener('click', () => openFullPhoto(post));
     fragment.append(pictureElement);
   });
 
