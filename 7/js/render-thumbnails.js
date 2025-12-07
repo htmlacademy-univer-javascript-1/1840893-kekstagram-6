@@ -1,9 +1,9 @@
-const renderThumbnail = (posts) => {
+const renderThumbnail = (genetarePosts) => {
   const pictureTemplate = document.querySelector('#picture').content;
   const picturesContainer = document.querySelector('.pictures');
   const fragment = document.createDocumentFragment();
 
-  posts.forEach((post) => {
+  genetarePosts.forEach((post) => {
     const pictureElement = pictureTemplate
       .querySelector('.picture')
       .cloneNode(true);

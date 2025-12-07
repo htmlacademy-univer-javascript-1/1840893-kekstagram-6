@@ -1,4 +1,4 @@
-import { posts } from './data.js';
-import {renderThumbnail} from './render-thumbnails.js';
+import { genetarePosts } from './data.js';
+import { renderThumbnail } from './render-thumbnails.js';
 
-renderThumbnail(posts());
+renderThumbnail(genetarePosts());
