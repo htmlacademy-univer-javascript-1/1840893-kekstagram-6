@@ -1,3 +1,4 @@
-import { post } from './data.js';
+import { generatePosts } from './data.js';
+import { renderThumbnail } from './render-thumbnails.js';
 
-post();
+renderThumbnail(generatePosts());
