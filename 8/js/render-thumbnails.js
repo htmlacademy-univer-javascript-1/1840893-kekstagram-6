@@ -18,7 +18,10 @@ const renderThumbnail = (posts) => {
     img.alt = post.description;
     likes.textContent = post.likes;
     comments.textContent = post.comments.length;
-    pictureElement.addEventListener('click', () => openFullPhoto(post));
+    pictureElement.addEventListener('click', (evt) => {
+      evt.preventDefault();
+      openFullPhoto(post);
+    });
     fragment.append(pictureElement);
   });
 
