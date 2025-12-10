@@ -1,3 +1,5 @@
+import { COMMENTS_PER_PAGE } from './constants.js';
+
 const createCommentElement = (comment) => {
   const li = document.createElement('li');
   li.classList.add('social__comment');
@@ -26,7 +28,6 @@ const openFullPhoto = (post) => {
   const commentsLoader = bigPicture.querySelector('.comments-loader');
   const fullPhoto = bigPicture.querySelector('.big-picture__img img');
   const likes = bigPicture.querySelector('.likes-count');
-  const numberOfComments = bigPicture.querySelector('.comments-count');
   const description = bigPicture.querySelector('.social__caption');
 
   body.classList.add('modal-open');
@@ -34,16 +35,39 @@ const openFullPhoto = (post) => {
 
   fullPhoto.src = post.url;
   likes.textContent = post.likes;
-  numberOfComments.textContent = post.comments.length;
   description.textContent = post.description;
 
-  commentsCountBlock.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
-  commentsBlock.innerHTML = '';
+  commentsCountBlock.classList.remove('hidden');
+  commentsLoader.classList.remove('hidden');
 
-  post.comments.forEach((comment) => {
-    commentsBlock.append(createCommentElement(comment));
-  });
+  commentsBlock.innerHTML = '';
+  let shownComments = 0;
+
+  showMoreComments();
+
+  function showMoreComments() {
+    const commentsSlice = post.comments.slice(
+      shownComments,
+      shownComments + COMMENTS_PER_PAGE
+    );
+
+    commentsSlice.forEach((comment) => {
+      commentsBlock.append(createCommentElement(comment));
+    });
+
+    shownComments += commentsSlice.length;
+
+    commentsCountBlock.textContent = `${shownComments} из ${post.comments.length} комментариев`;
+
+    if (shownComments >= post.comments.length) {
+      commentsLoader.classList.add('hidden');
+    }
+  }
+
+  const onCommentsLoaderClick = (evt) => {
+    evt.preventDefault();
+    showMoreComments();
+  };
 
   function closeFullPhoto() {
     bigPicture.classList.add('hidden');
@@ -51,6 +75,7 @@ const openFullPhoto = (post) => {
 
     document.removeEventListener('keydown', onEscKeyDown);
     closeBtn.removeEventListener('click', closeFullPhoto);
+    commentsLoader.removeEventListener('click', onCommentsLoaderClick);
   }
 
   function onEscKeyDown(evt) {
@@ -62,6 +87,7 @@ const openFullPhoto = (post) => {
 
   document.addEventListener('keydown', onEscKeyDown);
   closeBtn.addEventListener('click', closeFullPhoto);
+  commentsLoader.addEventListener('click', onCommentsLoaderClick);
 };
 
 export { openFullPhoto };
