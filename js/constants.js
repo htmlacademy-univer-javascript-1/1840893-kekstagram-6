@@ -8,6 +8,8 @@ const AVATAR_COUNT = 5;
 
 const COMMENT_COUNT = 30;
 
+const COMMENTS_PER_PAGE = 5;
+
 const NAME = ['Андрей', 'Киррил', 'Ева', 'Владимир', 'Юлия', 'Роман'];
 
 const MESSAGE = [
@@ -32,4 +34,4 @@ const DESCRIPTION = [
   'Скальная арка над морем, где волны бьют строго по KPI приливов.',
 ];
 
-export {PICTURE_COUNT, LIKE_MIN, LIKE_MAX, AVATAR_COUNT, COMMENT_COUNT, NAME, MESSAGE, DESCRIPTION};
+export {PICTURE_COUNT, LIKE_MIN, LIKE_MAX, AVATAR_COUNT, COMMENT_COUNT, NAME, MESSAGE, DESCRIPTION, COMMENTS_PER_PAGE};
