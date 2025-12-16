@@ -1420,7 +1420,7 @@ main {
   display: none;
 }
 
-.form-error-text {
+.img-upload__error {
   background-color: #e90000;
   color: #cccccc;
   font-size: 14px;

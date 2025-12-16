@@ -8,9 +8,9 @@ function validateHashtag(value) {
   hashtagErrorMessage = '';
 
   const tags = value
+    .toLowerCase()
     .trim()
-    .split(/\s+/)
-    .map((tag) => tag.toLowerCase());
+    .split(/\s+/);
 
   if (!value.trim()) {
     return true;
