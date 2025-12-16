@@ -12,6 +12,10 @@ function validateHashtag(value) {
     .split(/\s+/)
     .map((tag) => tag.toLowerCase());
 
+  if (!value.trim()) {
+    return true;
+  }
+
   if (tags.length > 5) {
     hashtagErrorMessage = 'Нельзя указать больше 5 хэштегов';
     return false;
