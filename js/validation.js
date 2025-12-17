@@ -1,4 +1,4 @@
-import { REGEX_FOR_HASHTAG } from './constants.js';
+import { REGEX_FOR_HASHTAG, HASHTAG_COUNT_MAX, HASHTAG_LENGTH_MAX, DESCRIPTION_LENGTH_MAX } from './constants.js';
 
 /* Hashtag */
 
@@ -16,8 +16,8 @@ function validateHashtag(value) {
     return true;
   }
 
-  if (tags.length > 5) {
-    hashtagErrorMessage = 'Нельзя указать больше 5 хэштегов';
+  if (tags.length > HASHTAG_COUNT_MAX) {
+    hashtagErrorMessage = `Нельзя указать больше ${HASHTAG_COUNT_MAX} хэштегов`;
     return false;
   }
 
@@ -35,8 +35,8 @@ function validateHashtag(value) {
       return false;
     }
 
-    if (tag.length > 20) {
-      hashtagErrorMessage = 'Максимальная длина хэштега — 20 символов';
+    if (tag.length > HASHTAG_LENGTH_MAX) {
+      hashtagErrorMessage = `Максимальная длина хэштега — ${HASHTAG_LENGTH_MAX} символов`;
       return false;
     }
 
@@ -56,7 +56,7 @@ function getHashtagErrorMessage() {
 /* Description */
 
 function validateDescription(value) {
-  return value.length <= 140;
+  return value.length <= DESCRIPTION_LENGTH_MAX;
 }
 
 /* Validation */
@@ -67,7 +67,7 @@ function initValidation(pristine, hashtag, description) {
   pristine.addValidator(
     description,
     validateDescription,
-    'Максимум 140 символов'
+    `Максимум ${DESCRIPTION_LENGTH_MAX} символов`
   );
 }
 

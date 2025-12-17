@@ -29,6 +29,8 @@ function initForm() {
     document.addEventListener('keydown', onDocumentKeydown);
     hashtag.addEventListener('keydown', onHashtagKeydown);
     description.addEventListener('keydown', onDescriptionKeydown);
+    closeBtn.addEventListener('click', closeOverlay);
+    form.addEventListener('submit', onFormSubmit);
   }
 
   function closeOverlay() {
@@ -45,17 +47,13 @@ function initForm() {
     document.removeEventListener('keydown', onDocumentKeydown);
     hashtag.removeEventListener('keydown', onHashtagKeydown);
     description.removeEventListener('keydown', onDescriptionKeydown);
+    closeBtn.removeEventListener('click', closeOverlay);
+    form.removeEventListener('submit', onFormSubmit);
   }
 
   /* Event Listeners */
 
   uploadImg.addEventListener('change', openOverlay);
-  closeBtn.addEventListener('click', closeOverlay);
-  form.addEventListener('submit', (evt) => {
-    if (!pristine.validate()) {
-      evt.preventDefault();
-    }
-  });
 
   function onDocumentKeydown(evt) {
     if (evt.key === 'Escape') {
@@ -72,6 +70,12 @@ function initForm() {
   function onDescriptionKeydown(evt) {
     if (evt.key === 'Escape') {
       evt.stopPropagation();
+    }
+  }
+
+  function onFormSubmit(evt) {
+    if (!pristine.validate()) {
+      evt.preventDefault();
     }
   }
 }
