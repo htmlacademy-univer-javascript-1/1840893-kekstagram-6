@@ -43,4 +43,16 @@ function showMessage(type) {
   document.addEventListener('click', onOutsideClick);
 }
 
-export { showMessage };
+const showErrorMessage = (err) => {
+  const body = document.body;
+  const errorContainer = document.createElement('div');
+  errorContainer.classList.add('error_container');
+  const errorMessage = document.createElement('p');
+  errorMessage.classList.add('error_message');
+  errorMessage.textContent = err;
+  errorContainer.append(errorMessage);
+  body.append(errorContainer);
+  return body;
+};
+
+export { showMessage, showErrorMessage };

@@ -1,4 +1,5 @@
 import { BASE_URL } from './constants.js';
+import { showErrorMessage } from './messages.js';
 
 /* Get posts */
 async function getPosts() {
@@ -17,21 +18,10 @@ async function getPosts() {
       }
     }
   } catch (err) {
-    console.log(err);
-    const body = document.body;
-    const errorContainer = document.createElement('div');
-    errorContainer.classList.add('error_container');
-    const errorMessage = document.createElement('p');
-    errorMessage.classList.add('error_message');
-    errorMessage.textContent = err;
-    errorContainer.append(errorMessage);
-    body.append(errorContainer);
-    return body;
+    showErrorMessage(err);
   }
 
-  const posts = await response.json();
-
-  return posts;
+  return response.json();
 }
 
 /* Send an information from a form */
