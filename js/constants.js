@@ -28,6 +28,8 @@ const REGEX_FOR_HASHTAG = /^#[A-Za-zА-Яа-яЁё0-9]+$/i;
 
 const NAME = ['Андрей', 'Киррил', 'Ева', 'Владимир', 'Юлия', 'Роман'];
 
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+
 const MESSAGE = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -91,5 +93,6 @@ export {
   SCALE_MAX,
   SCALE_MIN,
   SCALE_STEP,
-  BASE_URL
+  BASE_URL,
+  FILE_TYPES,
 };

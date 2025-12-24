@@ -24,6 +24,15 @@ const getPostId = () => ++postId;
 const getCommentId = () => ++commentId;
 const getPhotoId = () => ++photoId;
 
+function debounce(callback, timeoutDelay = 500) {
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+}
+
 export {
   getRandomInteger,
   getRandomArrayElement,
@@ -31,4 +40,5 @@ export {
   getPostId,
   getCommentId,
   getPhotoId,
+  debounce,
 };
