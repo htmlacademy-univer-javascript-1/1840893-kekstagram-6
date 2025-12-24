@@ -1,6 +1,8 @@
 import { initValidation } from './validation.js';
 import { sendData } from './api.js';
 import { showMessage } from './messages.js';
+import { initScale } from './scale.js';
+import { initEffects } from './effects.js';
 
 function initForm() {
   const uploadImg = document.querySelector('.img-upload__input');
@@ -21,42 +23,10 @@ function initForm() {
 
   initValidation(pristine, hashtag, description);
 
-  /* Events of form */
-
-  function openOverlay() {
-    overlay.classList.remove('hidden');
-    document.body.classList.add('modal-open');
-
-    /* Added Event Listeners */
-
-    document.addEventListener('keydown', onDocumentKeydown);
-    hashtag.addEventListener('keydown', onHashtagKeydown);
-    description.addEventListener('keydown', onDescriptionKeydown);
-    closeBtn.addEventListener('click', closeOverlay);
-    form.addEventListener('submit', onFormSubmit);
-  }
-
-  function closeOverlay() {
-    overlay.classList.add('hidden');
-    document.body.classList.remove('modal-open');
-    uploadImg.value = '';
-    hashtag.value = '';
-    description.value = '';
-    form.reset();
-    pristine.reset();
-
-    /* Deleted Event Listeners */
-
-    document.removeEventListener('keydown', onDocumentKeydown);
-    hashtag.removeEventListener('keydown', onHashtagKeydown);
-    description.removeEventListener('keydown', onDescriptionKeydown);
-    closeBtn.removeEventListener('click', closeOverlay);
-    form.removeEventListener('submit', onFormSubmit);
-  }
+  const scale = initScale();
+  const effects = initEffects();
 
   /* Event Listeners */
-
-  uploadImg.addEventListener('change', openOverlay);
 
   function onDocumentKeydown(evt) {
     if (evt.key === 'Escape') {
@@ -95,6 +65,47 @@ function initForm() {
       submitBtn.disabled = false;
     }
   }
+
+  /* Events of form */
+
+  function openOverlay() {
+    overlay.classList.remove('hidden');
+    document.body.classList.add('modal-open');
+
+    scale.enable();
+    effects.enable();
+
+    /* Added Event Listeners */
+
+    document.addEventListener('keydown', onDocumentKeydown);
+    hashtag.addEventListener('keydown', onHashtagKeydown);
+    description.addEventListener('keydown', onDescriptionKeydown);
+    closeBtn.addEventListener('click', closeOverlay);
+    form.addEventListener('submit', onFormSubmit);
+  }
+
+  function closeOverlay() {
+    overlay.classList.add('hidden');
+    document.body.classList.remove('modal-open');
+    uploadImg.value = '';
+    hashtag.value = '';
+    description.value = '';
+    form.reset();
+    pristine.reset();
+
+    scale.disable();
+    effects.disable();
+
+    /* Deleted Event Listeners */
+
+    document.removeEventListener('keydown', onDocumentKeydown);
+    hashtag.removeEventListener('keydown', onHashtagKeydown);
+    description.removeEventListener('keydown', onDescriptionKeydown);
+    closeBtn.removeEventListener('click', closeOverlay);
+    form.removeEventListener('submit', onFormSubmit);
+  }
+
+  uploadImg.addEventListener('change', openOverlay);
 }
 
 export { initForm };

@@ -18,6 +18,12 @@ const DESCRIPTION_LENGTH_MAX = 140;
 
 const BASE_URL = 'https://29.javascript.htmlacademy.pro/kekstagram';
 
+const SCALE_STEP = 25;
+
+const SCALE_MIN = 25;
+
+const SCALE_MAX = 100;
+
 const REGEX_FOR_HASHTAG = /^#[A-Za-zА-Яа-яЁё0-9]+$/i;
 
 const NAME = ['Андрей', 'Киррил', 'Ева', 'Владимир', 'Юлия', 'Роман'];
@@ -44,4 +50,46 @@ const DESCRIPTION = [
   'Скальная арка над морем, где волны бьют строго по KPI приливов.',
 ];
 
-export {PICTURE_COUNT, LIKE_MIN, LIKE_MAX, AVATAR_COUNT, COMMENT_COUNT, NAME, MESSAGE, DESCRIPTION, COMMENTS_PER_PAGE, REGEX_FOR_HASHTAG, HASHTAG_COUNT_MAX, HASHTAG_LENGTH_MAX, DESCRIPTION_LENGTH_MAX, BASE_URL};
+const EFFECTS = {
+  none: { filter: null },
+  chrome: {
+    filter: 'grayscale',
+    min: 0,
+    max: 1,
+    step: 0.1,
+    unit: '',
+    start: 1,
+  },
+  sepia: { filter: 'sepia', min: 0, max: 1, step: 0.1, unit: '', start: 1 },
+  marvin: {
+    filter: 'invert',
+    min: 0,
+    max: 100,
+    step: 1,
+    unit: '%',
+    start: 100,
+  },
+  phobos: { filter: 'blur', min: 0, max: 3, step: 0.1, unit: 'px', start: 3 },
+  heat: { filter: 'brightness', min: 1, max: 3, step: 0.1, unit: '', start: 3 },
+};
+
+export {
+  PICTURE_COUNT,
+  LIKE_MIN,
+  LIKE_MAX,
+  AVATAR_COUNT,
+  COMMENT_COUNT,
+  NAME,
+  MESSAGE,
+  DESCRIPTION,
+  COMMENTS_PER_PAGE,
+  REGEX_FOR_HASHTAG,
+  HASHTAG_COUNT_MAX,
+  HASHTAG_LENGTH_MAX,
+  DESCRIPTION_LENGTH_MAX,
+  EFFECTS,
+  SCALE_MAX,
+  SCALE_MIN,
+  SCALE_STEP,
+  BASE_URL
+};
