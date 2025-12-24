@@ -46,9 +46,23 @@ function initForm() {
     }
   }
 
-  function onFormSubmit(evt) {
+  async function onFormSubmit(evt) {
+    evt.preventDefault();
+
     if (!pristine.validate()) {
-      evt.stopPropagation();
+      return;
+    }
+
+    submitBtn.disabled = true;
+
+    try {
+      await sendData(new FormData(form));
+      closeOverlay();
+      showMessage('success');
+    } catch (err) {
+      showMessage('error');
+    } finally {
+      submitBtn.disabled = false;
     }
   }
 
@@ -92,44 +106,6 @@ function initForm() {
   }
 
   uploadImg.addEventListener('change', openOverlay);
-
-  function onDocumentKeydown(evt) {
-    if (evt.key === 'Escape') {
-      closeOverlay();
-    }
-  }
-
-  function onHashtagKeydown(evt) {
-    if (evt.key === 'Escape') {
-      evt.stopPropagation();
-    }
-  }
-
-  function onDescriptionKeydown(evt) {
-    if (evt.key === 'Escape') {
-      evt.stopPropagation();
-    }
-  }
-
-  async function onFormSubmit(evt) {
-    evt.preventDefault();
-
-    if (!pristine.validate()) {
-      return;
-    }
-
-    submitBtn.disabled = true;
-
-    try {
-      await sendData(new FormData(form));
-      closeOverlay();
-      showMessage('success');
-    } catch (err) {
-      showMessage('error');
-    } finally {
-      submitBtn.disabled = false;
-    }
-  }
 }
 
 export { initForm };
