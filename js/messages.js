@@ -46,9 +46,9 @@ function showMessage(type) {
 const showErrorMessage = (err) => {
   const body = document.body;
   const errorContainer = document.createElement('div');
-  errorContainer.classList.add('error_container');
+  errorContainer.classList.add('data-error');
   const errorMessage = document.createElement('p');
-  errorMessage.classList.add('error_message');
+  errorMessage.classList.add('error');
   errorMessage.textContent = err;
   errorContainer.append(errorMessage);
   body.append(errorContainer);

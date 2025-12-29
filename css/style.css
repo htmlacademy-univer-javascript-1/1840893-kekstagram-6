@@ -1431,7 +1431,7 @@ main {
   font-family: inherit;
 }
 
-.error_container {
+.data-error {
   background-color: #f85757;
   position: absolute;
   color: #cccccc;

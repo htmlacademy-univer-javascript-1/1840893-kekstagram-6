@@ -1,12 +1,11 @@
 import { BASE_URL } from './constants.js';
-import { showErrorMessage } from './messages.js';
+import { showErrorMessage, showMessage } from './messages.js';
 
 /* Get posts */
 async function getPosts() {
-  let response;
-
   try {
-    response = await fetch(`${BASE_URL}/data`);
+    const response = await fetch(`${BASE_URL}/data`);
+
     if (!response.ok) {
       switch (`${response.status}`) {
         case '404':
@@ -17,25 +16,34 @@ async function getPosts() {
           throw new Error(`${response.status} - Неизвестная ошибка`);
       }
     }
+
+    const text = await response.text();
+    return text ? JSON.parse(text) : [];
   } catch (err) {
     showErrorMessage(err);
+    return [];
   }
-
-  return response.json();
 }
 
 /* Send an information from a form */
 
 async function sendData(formData) {
-  const response = await fetch(`${BASE_URL}`, {
-    method: 'POST',
-    body: formData,
-  });
+  try {
+    const response = await fetch(`${BASE_URL}/`, {
+      method: 'POST',
+      body: formData,
+    });
 
-  if (!response.ok) {
-    throw new Error(response.status);
+    if (!response.ok) {
+      throw new Error(`${response.status} - Ошибка при отправке данных`);
+    }
+
+    const text = await response.text();
+    return text ? JSON.parse(text) : {};
+  } catch (err) {
+    showMessage(err);
+    return {};
   }
-  return response.json();
 }
 
 export { getPosts, sendData };
