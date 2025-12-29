@@ -43,9 +43,25 @@ const openFullPhoto = (post) => {
   commentsBlock.innerHTML = '';
   let shownComments = 0;
 
-  showMoreComments();
+  commentsCountBlock.innerHTML = '';
 
-  function showMoreComments() {
+  const shownCountElement = document.createElement('span');
+  shownCountElement.classList.add('social__comment-shown-count');
+
+  const textBetween = document.createTextNode(' из ');
+
+  const totalCountElement = document.createElement('span');
+  totalCountElement.classList.add('social__comment-total-count');
+
+  const textAfter = document.createTextNode(' комментариев');
+
+  commentsCountBlock.appendChild(shownCountElement);
+  commentsCountBlock.appendChild(textBetween);
+  commentsCountBlock.appendChild(totalCountElement);
+  commentsCountBlock.appendChild(textAfter);
+
+  const showMoreComments = () => {
+
     const commentsSlice = post.comments.slice(
       shownComments,
       shownComments + COMMENTS_PER_PAGE
@@ -57,12 +73,18 @@ const openFullPhoto = (post) => {
 
     shownComments += commentsSlice.length;
 
-    commentsCountBlock.textContent = `${shownComments} из ${post.comments.length} комментариев`;
+    shownCountElement.textContent = shownComments;
+    totalCountElement.textContent = post.comments.length;
 
     if (shownComments >= post.comments.length) {
       commentsLoader.classList.add('hidden');
     }
-  }
+  };
+
+  shownCountElement.textContent = 0;
+  totalCountElement.textContent = post.comments.length;
+
+  showMoreComments();
 
   const onCommentsLoaderClick = (evt) => {
     evt.preventDefault();
