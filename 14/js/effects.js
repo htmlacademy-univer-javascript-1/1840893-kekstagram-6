@@ -1,4 +1,4 @@
-import { EFFECTS, FILE_TYPES } from './constants.js';
+import { EFFECTS } from './constants.js';
 
 const initEffects = () => {
   const effectsList = document.querySelector('.effects__list');
@@ -76,27 +76,5 @@ const initEffects = () => {
 
   return { enable, disable };
 };
-
-/* Applying the uploaded image  */
-
-const fileInput = document.querySelector('.img-upload__start input[type=file]');
-const uploadPreviewImg = document.querySelector('.img-upload__preview img');
-const thumbnailsEffects = document.querySelectorAll('.effects__preview');
-
-fileInput.addEventListener('change', () => {
-  const file = fileInput.files[0];
-  const matches = FILE_TYPES.some((type) =>
-    file.name.toLowerCase().endsWith(type)
-  );
-  if (matches) {
-    const imageUrl = URL.createObjectURL(file);
-
-    uploadPreviewImg.src = imageUrl;
-
-    thumbnailsEffects.forEach((thumbnail) => {
-      thumbnail.style.backgroundImage = `url(${imageUrl})`;
-    });
-  }
-});
 
 export { initEffects };

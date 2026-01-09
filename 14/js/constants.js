@@ -26,6 +26,15 @@ const SCALE_MAX = 100;
 
 const REGEX_FOR_HASHTAG = /^#[A-Za-zА-Яа-яЁё0-9]+$/i;
 
+const FILTERS = {
+  DEFAULT: 'default',
+  RANDOM: 'random',
+  DISCUSSED: 'discussed'
+};
+
+const RANDOM_POSTS_COUNT = 10;
+const RENDER_DELAY = 500;
+
 const NAME = ['Андрей', 'Киррил', 'Ева', 'Владимир', 'Юлия', 'Роман'];
 
 const FILE_TYPES = ['jpg', 'jpeg', 'png'];
@@ -95,4 +104,7 @@ export {
   SCALE_STEP,
   BASE_URL,
   FILE_TYPES,
+  FILTERS,
+  RENDER_DELAY,
+  RANDOM_POSTS_COUNT
 };
