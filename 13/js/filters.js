@@ -1,9 +1,10 @@
 import { renderThumbnail } from './render-thumbnails.js';
 import { debounce } from './util.js';
+import { FILTERS, RANDOM_POSTS_COUNT, RENDER_DELAY } from './constants.js';
 
 const imgFilters = document.querySelector('.img-filters');
 let posts = [];
-let currentFilter = 'default';
+let currentFilter = FILTERS.DEFAULT;
 
 /* Cleaning the gallery */
 
@@ -16,7 +17,7 @@ const clearThumbnails = () => {
 const renderDebounced = debounce((data) => {
   clearThumbnails();
   renderThumbnail(data);
-}, 500);
+}, RENDER_DELAY);
 
 const setActiveButton = (activeBtn) => {
   imgFilters.querySelectorAll('.img-filters__button').forEach((btn) => {
@@ -31,10 +32,10 @@ const applyFilter = (filterType) => {
 
   let filteredPosts;
   switch (filterType) {
-    case 'random':
-      filteredPosts = [...posts].sort(() => Math.random() - 0.5).slice(0, 10);
+    case FILTERS.RANDOM:
+      filteredPosts = [...posts].sort(() => Math.random() - 0.5).slice(0, RANDOM_POSTS_COUNT);
       break;
-    case 'discussed':
+    case FILTERS.DISCUSSED:
       filteredPosts = [...posts].sort(
         (a, b) => b.comments.length - a.comments.length
       );
@@ -51,7 +52,7 @@ const onFilterClick = (evt) => {
 
   const filterType = button.id.replace('filter-', '');
 
-  if (filterType === 'random' || filterType !== currentFilter) {
+  if (filterType === FILTERS.RANDOM || filterType !== currentFilter) {
     applyFilter(filterType);
   }
 };
@@ -59,10 +60,6 @@ const onFilterClick = (evt) => {
 function initFilters(loadedPosts) {
   posts = loadedPosts.slice();
   imgFilters.classList.remove('img-filters--inactive');
-
-  /* Deleted the event listener */
-
-  imgFilters.removeEventListener('click', onFilterClick);
 
   /* Added the event listener */
 
