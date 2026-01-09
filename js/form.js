@@ -1,8 +1,9 @@
 import { initValidation } from './validation.js';
 import { sendData } from './api.js';
-import { showMessage } from './messages.js';
+import { showMessage, showErrorMessage } from './messages.js';
 import { initScale } from './scale.js';
 import { initEffects } from './effects.js';
+import { FILE_TYPES } from './constants.js';
 
 function initForm() {
   const uploadImg = document.querySelector('.img-upload__input');
@@ -12,6 +13,15 @@ function initForm() {
   const description = document.querySelector('.text__description');
   const form = document.querySelector('.img-upload__form');
   const submitBtn = form.querySelector('.img-upload__submit');
+  const uploadPreviewImg = document.querySelector('.img-upload__preview img');
+  const thumbnailsEffects = document.querySelectorAll('.effects__preview');
+
+  const removeOldErrorMessages = () => {
+    const oldError = document.querySelector('.error_container');
+    if (oldError) {
+      oldError.remove();
+    }
+  };
 
   /* Validation */
 
@@ -69,6 +79,28 @@ function initForm() {
   /* Events of form */
 
   function openOverlay() {
+    removeOldErrorMessages();
+
+    const file = uploadImg.files[0];
+
+    const matches = FILE_TYPES.some((type) =>
+      file.name.toLowerCase().endsWith(type)
+    );
+
+    if (!matches) {
+      uploadImg.value = '';
+      showErrorMessage(
+        'Недопустимый формат файла. Выберите изображение в формате JPG или PNG.'
+      );
+      return;
+    }
+
+    const imageUrl = URL.createObjectURL(file);
+    uploadPreviewImg.src = imageUrl;
+    thumbnailsEffects.forEach((thumbnail) => {
+      thumbnail.style.backgroundImage = `url(${imageUrl})`;
+    });
+
     overlay.classList.remove('hidden');
     document.body.classList.add('modal-open');
 
